@@ -3,8 +3,10 @@ import random
 
 # global variables
 map: dict[str, str] = {"A":"A", "B":"B", "C":"C"}
-doors = ['A', 'B', 'C']
 prize_door: str = ""
+
+# constants
+doors: list[str] = ['A', 'B', 'C']
 car: str = ts.bold + ts.purple + "CAR" + ts.reset
 goat: str = ts.bold + "GOAT" + ts.reset
 
@@ -63,7 +65,9 @@ def door_open(player_input: str, stage: int) -> int:
     global map, prize_door, doors
     opened_door: str = ""
     if stage == 0:
-        for door in doors:
+        shuffled_doors: list[str] = doors.copy()
+        random.shuffle(shuffled_doors)
+        for door in shuffled_doors:
             if (door != player_input) and (door != prize_door):
                 map[door] = goat
                 opened_door = door
